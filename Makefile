@@ -1,23 +1,41 @@
-# This software is a part of the A.O.D (https://apprepo.de) project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# http://www.apache.org/licenses/LICENSE-2.0
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.PWD:=$(shell pwd)
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+PWD:=$(shell pwd)
 
-all:
-	wget --output-document=$(PWD)/Falkon.AppImage  https://download.kde.org/stable/falkon/3.0.1/Falkon-3.0.1.AppImage
+all: clean
+
+	mkdir --parents $(PWD)/build/Boilerplate.AppDir
+	apprepo --destination=$(PWD)/build appdir boilerplate falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 \
+							libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5
+
+	echo 'ls $${HOME}/.falkon > /dev/null 2>&1 | mkdir --parents $${HOME}/.falkon' >> $(PWD)/build/Boilerplate.AppDir/AppRun
+	echo 'cp --force $${APPDIR}/share/qt5/resources/* $${HOME}/.falkon' >> $(PWD)/build/Boilerplate.AppDir/AppRun
+
+	echo 'ls $${HOME}/.QtWebEngineProcess > /dev/null 2>&1 | mkdir --parents $${HOME}/.QtWebEngineProcess' >> $(PWD)/build/Boilerplate.AppDir/AppRun
+	echo 'cp --force $${APPDIR}/share/qt5/resources/* $${HOME}/.QtWebEngineProcess' >> $(PWD)/build/Boilerplate.AppDir/AppRun
+
+	echo 'exec $${APPDIR}/bin/falkon $${@}' >> $(PWD)/build/Boilerplate.AppDir/AppRun
+
+	rm -f $(PWD)/build/Boilerplate.AppDir/*.desktop 	| true
+	rm -f $(PWD)/build/Boilerplate.AppDir/*.png 		| true
+	rm -f $(PWD)/build/Boilerplate.AppDir/*.svg 		| true	
+
+	cp --force $(PWD)/AppDir/*.svg 		$(PWD)/build/Boilerplate.AppDir 			| true	
+	cp --force $(PWD)/AppDir/*.desktop 	$(PWD)/build/Boilerplate.AppDir 			| true	
+	cp --force $(PWD)/AppDir/*.png 		$(PWD)/build/Boilerplate.AppDir 			| true	
+
+	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage $(PWD)/build/Boilerplate.AppDir $(PWD)/Falkon.AppImage
 	chmod +x $(PWD)/Falkon.AppImage
 
+
 clean:
-	rm -f $(PWD)/*.AppImage	
+	rm -rf $(PWD)/build
