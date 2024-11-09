@@ -1,0 +1,13 @@
+#! /bin/sh
+
+[ -d ${HOME}/.falkon ] || {
+  mkdir -p ${HOME}/.falkon
+  cp -f ${APPDIR}/share/qt5/resources/* ${HOME}/.falkon
+}
+
+[ -d ${HOME}/.QtWebEngineProcess ] || {
+  mkdir -p ${HOME}/.QtWebEngineProcess
+  cp -f $${APPDIR}/share/qt5/resources/* ${HOME}/.QtWebEngineProcess
+}
+
+exec ${APPDIR}/bin/falkon "${@}"

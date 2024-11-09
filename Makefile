@@ -9,37 +9,24 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-PWD:=$(shell pwd)
 
 all: clean
+	curl -o apprepo https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage
+	chmod +x apprepo
 
-	mkdir --parents $(PWD)/build/Boilerplate.AppDir
-	apprepo --destination=$(PWD)/build appdir boilerplate falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
+	curl -o appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+	chmod +x appimagetool
+
+	mkdir -p build/Boilerplate.AppDir
+	./apprepo --destination=build appdir boilerplate falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
 							libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5 libselinux1
 
-	echo ''		 																							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo ''		 																							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo 'ls $${HOME}/.falkon > /dev/null 2>&1 | mkdir --parents $${HOME}/.falkon' 							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo 'cp --force $${APPDIR}/share/qt5/resources/* $${HOME}/.falkon' 									>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo ''		 																							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo ''		 																							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo 'ls $${HOME}/.QtWebEngineProcess > /dev/null 2>&1 | mkdir --parents $${HOME}/.QtWebEngineProcess' 	>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo 'cp --force $${APPDIR}/share/qt5/resources/* $${HOME}/.QtWebEngineProcess' 						>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo ''		 																							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo ''		 																							>> $(PWD)/build/Boilerplate.AppDir/AppRun
-	echo 'exec $${APPDIR}/bin/falkon $${@}' 																>> $(PWD)/build/Boilerplate.AppDir/AppRun
+	cp -f AppDir/*.svg \
+			  AppDir/*.desktop \
+				AppDir/*.png build/Boilerplate.AppDir
 
-	rm -f $(PWD)/build/Boilerplate.AppDir/*.desktop 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/*.png 		|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/*.svg 		|| true	
-
-	cp --force $(PWD)/AppDir/*.svg 		$(PWD)/build/Boilerplate.AppDir 			|| true	
-	cp --force $(PWD)/AppDir/*.desktop 	$(PWD)/build/Boilerplate.AppDir 			|| true	
-	cp --force $(PWD)/AppDir/*.png 		$(PWD)/build/Boilerplate.AppDir 			|| true	
-
-	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage $(PWD)/build/Boilerplate.AppDir $(PWD)/Falkon.AppImage
-	chmod +x $(PWD)/Falkon.AppImage
-
+	ARCH=x86_64 ./appimagetool build/Boilerplate.AppDir Falkon.AppImage
+	chmod +x Falkon.AppImage
 
 clean:
-	rm -rf $(PWD)/build
+	rm -rf build
