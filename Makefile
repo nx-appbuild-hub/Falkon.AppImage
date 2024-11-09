@@ -22,8 +22,7 @@ all: clean
 							libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5 libselinux1
 
 	cp -f AppDir/*.svg \
-			  AppDir/*.desktop \
-				AppDir/*.png build/Boilerplate.AppDir
+			  AppDir/*.desktop build/Boilerplate.AppDir
 
 	ARCH=x86_64 ./appimagetool build/Boilerplate.AppDir Falkon.AppImage
 	chmod +x Falkon.AppImage
