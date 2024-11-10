@@ -13,7 +13,7 @@
 all: clean
 	`curl -sL https://raw.githubusercontent.com/nx-appbuild-hub/base-tools/refs/heads/main/install.sh | sh`
 
-	./fill-appdir falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
+	fill-appdir falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
 								libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5 libselinux1
 
 	ARCH=x86_64 ./appimagetool AppDir Falkon.AppImage
