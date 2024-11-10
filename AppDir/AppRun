@@ -7,7 +7,7 @@
 
 [ -d ${HOME}/.QtWebEngineProcess ] || {
   mkdir -p ${HOME}/.QtWebEngineProcess
-  cp -f $${APPDIR}/share/qt5/resources/* ${HOME}/.QtWebEngineProcess
+  cp -f ${APPDIR}/share/qt5/resources/* ${HOME}/.QtWebEngineProcess
 }
 
 exec ${APPDIR}/bin/falkon "${@}"

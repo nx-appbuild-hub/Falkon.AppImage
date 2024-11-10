@@ -11,20 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 all: clean
-	curl -sLo apprepo https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage
-	chmod +x apprepo
+	`curl -sLhttps://raw.githubusercontent.com/nx-appbuild-hub/base-tools/refs/heads/main/install.sh`
 
-	curl -sLo appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
-	chmod +x appimagetool
+	./fill-appdir falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
+								libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5 libselinux1
 
-	mkdir -p build/Boilerplate.AppDir
-	./apprepo --destination=build appdir boilerplate falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
-							libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5 libselinux1
-
-	cp -f AppDir/*.svg \
-			  AppDir/*.desktop build/Boilerplate.AppDir
-
-	ARCH=x86_64 ./appimagetool build/Boilerplate.AppDir Falkon.AppImage
+	ARCH=x86_64 ./appimagetool AppDir Falkon.AppImage
 	chmod +x Falkon.AppImage
 
 clean:
