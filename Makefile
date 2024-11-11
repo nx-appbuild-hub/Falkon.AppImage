@@ -15,7 +15,7 @@ all: clean
 
 	curl -sLo ${HOME}/.bin/appimagetool \
 	    https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
-	curl -sLo fill-appdir \
+	curl -sLo ${HOME}/.bin/fill-appdir \
 	    https://raw.githubusercontent.com/nx-appbuild-hub/base-tools/refs/heads/main/fill-appdir
 
 	chmod +x ${HOME}/.bin/appimagetool
