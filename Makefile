@@ -11,18 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 all: clean
-	mkdir -p ${HOME}/.bin
-
-	curl -sLo ${HOME}/.bin/appimagetool \
+	curl -sLo appimagetool \
 	    https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
-	curl -sLo ${HOME}/.bin/fill-appdir \
+	curl -sLo fill-appdir \
 	    https://raw.githubusercontent.com/nx-appbuild-hub/base-tools/refs/heads/main/fill-appdir
 
-	chmod +x ${HOME}/.bin/appimagetool
-	chmod +x ${HOME}/.bin/fill-appdir
-	export PATH=${PATH}:${HOME}/.bin
+	chmod +x appimagetool fill-appdir
 
-	fill-appdir falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
+	./fill-appdir falkon libqt5webenginecore5 libqt5xml5 libqt5sql5 libqt5dbus5 libselinux1 \
 								libqt5printsupport5 libqt5widgets5 libqt5qml5 libqt5network5 libqt5gui5 libqt5core5a libqt5quick5
 
 	ARCH=x86_64 ./appimagetool AppDir Falkon.AppImage
