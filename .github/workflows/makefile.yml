@@ -13,7 +13,7 @@ jobs:
 
     - name: Deps
       run: |
-        sudo apt-get -y install libfuse2
+        sudo apt-get -y install libfuse2 desktop-file-utils
 
     - name: Build
       run: |
