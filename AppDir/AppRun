@@ -10,4 +10,4 @@
   cp -f ${APPDIR}/share/qt5/resources/* ${HOME}/.QtWebEngineProcess
 }
 
-exec ${APPDIR}/bin/falkon "${@}"
+exec ${APPDIR}/usr/bin/falkon "${@}"
