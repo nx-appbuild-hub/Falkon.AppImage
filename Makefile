@@ -55,5 +55,5 @@ all:
 								qml-module-qtwebengine \
 								qtwebengine5-dev-tools
 
-	./appimagetool AppDir Falkon.AppImage
+	ARCH=x86_64 ./appimagetool AppDir Falkon.AppImage
 	chmod +x Falkon.AppImage
