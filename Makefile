@@ -18,12 +18,42 @@ all:
 
 	chmod +x appimagetool fill-appdir
 
-	./fill-appdir falkon libqt5sql5-sqlite qml-module-qtwebengine qtwebengine5-dev-tools kio \
-								libc6 libgcc-s1 libkf5archive5 libkf5coreaddons5 libkf5crash5 libkf5kiocore5 \
-								libkf5kiowidgets5 libkf5purpose-bin libkf5purpose5 libkf5wallet-bin libkf5wallet5 \
-								libqt5core5a libqt5dbus5 libqt5gui5 libqt5gui5-gles libqt5network5 libqt5printsupport5 \
-								libqt5qml5 libqt5quickwidgets5 libqt5sql5 libqt5webchannel5 libqt5webenginecore5 \
-								libqt5webenginewidgets5 libqt5widgets5 libqt5x11extras5 libssl3 libstdc++6 libxcb1
+	./fill-appdir falkon \
+								kio \
+								libc6 \
+								libgcc-s1 \
+								libkf5archive5 \
+								libkf5coreaddons5 \
+								libkf5crash5 \
+								libkf5kiocore5 \
+								libkf5kiowidgets5 \
+								libkf5purpose5 \
+								libkf5purpose-bin \
+								libkf5wallet5 \
+								libkf5wallet-bin \
+								libqt5core5a \
+								libqt5dbus5 \
+								libqt5gui5 \
+								libqt5gui5-gles \
+								libqt5network5 \
+								libqt5printsupport5 \
+								libqt5qml5 \
+								libqt5quick5 \
+								libqt5quickwidgets5 \
+								libqt5sql5 \
+								libqt5sql5-sqlite \
+								libqt5webchannel5 \
+								libqt5webenginecore5 \
+								libqt5webenginewidgets5 \
+								libqt5widgets5 \
+								libqt5x11extras5 \
+								libqt5xml5 \
+								libselinux1 \
+								libssl3 \
+								libstdc++6 \
+								libxcb1 \
+								qml-module-qtwebengine \
+								qtwebengine5-dev-tools
 
-	ARCH=x86_64 ./appimagetool AppDir Falkon.AppImage
+	./appimagetool AppDir Falkon.AppImage
 	chmod +x Falkon.AppImage
